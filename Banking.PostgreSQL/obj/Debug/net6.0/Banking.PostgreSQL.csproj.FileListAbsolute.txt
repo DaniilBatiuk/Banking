@@ -1,0 +1,14 @@
+D:\Patterns\Banking.API\Banking.PostgreSQL\bin\Debug\net6.0\Banking.PostgreSQL.deps.json
+D:\Patterns\Banking.API\Banking.PostgreSQL\bin\Debug\net6.0\Banking.PostgreSQL.runtimeconfig.json
+D:\Patterns\Banking.API\Banking.PostgreSQL\bin\Debug\net6.0\Banking.PostgreSQL.dll
+D:\Patterns\Banking.API\Banking.PostgreSQL\bin\Debug\net6.0\Banking.PostgreSQL.pdb
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.csproj.AssemblyReference.cache
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.AssemblyInfoInputs.cache
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.AssemblyInfo.cs
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.csproj.CoreCompileInputs.cache
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.dll
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\refint\Banking.PostgreSQL.dll
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.pdb
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\Banking.PostgreSQL.genruntimeconfig.cache
+D:\Patterns\Banking.API\Banking.PostgreSQL\obj\Debug\net6.0\ref\Banking.PostgreSQL.dll
