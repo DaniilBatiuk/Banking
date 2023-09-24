@@ -1,6 +1,7 @@
 ﻿using Banking.API.RestModels.Client;
-using Banking.PostgreSQL.Commands.Client.Create;
-using Banking.PostgreSQL.Commands.Client.Delete;
+using Banking.PostgreSQL.CQRS.Client.Commands.Create;
+using Banking.PostgreSQL.CQRS.Client.Commands.Delete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Banking.API.Controllers.Client;
@@ -10,24 +11,24 @@ namespace Banking.API.Controllers.Client;
 [ApiExplorerSettings(GroupName = "clients")]
 public sealed class DeleteClientController : ControllerBase
 {
-    private readonly IDeleteClientCommand _deleteClient;
+    private readonly IDeleteClientCommandHandler _deleteClientCommandHandler;
 
-    public DeleteClientController(IDeleteClientCommand deleteClient)
+    public DeleteClientController(IDeleteClientCommandHandler deleteClientCommandHandler)
     {
-        _deleteClient = deleteClient;
+        _deleteClientCommandHandler = deleteClientCommandHandler;
     }
 
     [HttpDelete("delete")]
     public async Task<IActionResult> Delete([FromBody] DeleteClientRequest request)
     {
 
-        DeleteClientDto dto = new DeleteClientDto(
-            request.Id
-        );
-
         try
         {
-            await _deleteClient.Execute(dto);
+            DeleteClientCommand deleteClientCommand = new DeleteClientCommand(
+           request.Id
+           );
+
+            await _deleteClientCommandHandler.Handle(deleteClientCommand);
             return Ok("Account deleted successfully");
         }
         catch (Exception ex)

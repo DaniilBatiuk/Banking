@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Transaction.Create;
 
-public sealed record CreateTransactionDto
+/*public sealed record CreateTransactionDto
 {
     public int AccountId { get; set; }
     public string TransactionType { get; set; }
@@ -18,4 +18,4 @@ public sealed record CreateTransactionDto
         TransactionType = transactionType;
         Amount = amount;
     }
-}
+}*/

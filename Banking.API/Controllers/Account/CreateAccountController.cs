@@ -1,7 +1,14 @@
 ﻿using Banking.API.RestModels.Account;
-using Banking.PostgreSQL.Commands.Account.Create;
+using Banking.API.RestModels.Client;
+using Banking.PostgreSQL.CQRS.Account.Create;
+using Banking.PostgreSQL.CQRS.Client.Commands.Create;
+using Banking.PostgreSQL.CQRS.Client.Queries.FindClient;
+using Banking.PostgreSQL.Dtos.Account;
+using Banking.PostgreSQL.Dtos.Client;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CreateAccountCommand = Banking.PostgreSQL.CQRS.Account.Create.CreateAccountCommand;
 
 namespace Banking.API.Controllers.Account;
 
@@ -10,25 +17,35 @@ namespace Banking.API.Controllers.Account;
 [ApiExplorerSettings(GroupName = "accounts")]
 public sealed class CreateAccountController : ControllerBase
 {
-    private readonly ICreateAccountCommand _createAccount;
+    private readonly ICreateAccountCommandHandler _createAccountCommandHandler;
+    private readonly ILogger<CreateAccountController> _logger;
 
-    public CreateAccountController(ICreateAccountCommand createAccount)
+    public CreateAccountController(
+        ICreateAccountCommandHandler createAccountCommandHandler, ILogger<CreateAccountController> logger)
     {
-        _createAccount = createAccount;
+        _createAccountCommandHandler = createAccountCommandHandler;
+        _logger = logger;
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
+    public async Task<ActionResult<CreateAccountResponse>> Create([FromBody] CreateAccountRequest request)
     {
 
-        CreateAccountDto dto = new CreateAccountDto(
-            request.ClientId,
-            request.Balance
-        );
+        try
+        {
+            CreateAccountCommand createAccountCommand = new CreateAccountCommand(
+                request.ClientId,
+                request.Balance);
 
+            await _createAccountCommandHandler.Handle(createAccountCommand);
 
-        await _createAccount.Execute(dto);
+                return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error occured during the user creation process");
 
-        return Ok();
+            return Problem("Something went wrong");
+        }
     }
 }

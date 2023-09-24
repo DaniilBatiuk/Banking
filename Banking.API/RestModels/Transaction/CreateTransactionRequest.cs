@@ -2,7 +2,7 @@
 
 public sealed record CreateTransactionRequest
 {
-    public int AccountId { get; set; }
-    public string TransactionType { get; set; }
-    public decimal Amount { get; set; }
+    public int AccountId { get; init; }
+    public string TransactionType { get; init; }
+    public decimal Amount { get; init; }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Client.Create;
 
-public sealed record CreateClientDto
+/*public sealed record CreateClientDto
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -20,4 +20,4 @@ public sealed record CreateClientDto
         Email = email;
         PasswordHash = passwordHash;
     }
-}
+}*/

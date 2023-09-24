@@ -2,6 +2,6 @@
 
 public sealed record CreateTransactionHistoryRequest
 {
-    public int TransactionId { get; set; }
-    public string OperationDetails { get; set; }
+    public int TransactionId { get; init; }
+    public string OperationDetails { get; init; }
 }

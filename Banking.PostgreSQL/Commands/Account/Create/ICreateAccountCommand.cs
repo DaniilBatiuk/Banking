@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Account.Create;
-public interface ICreateAccountCommand : INoResponseAsyncCommand<CreateAccountDto>
+/*public interface ICreateAccountCommand : INoResponseAsyncCommand<CreateAccountDto>
 {
 
-}
+}*/

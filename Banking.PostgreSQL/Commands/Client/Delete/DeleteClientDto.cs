@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Client.Delete;
 
-public sealed record DeleteClientDto
+/*public sealed record DeleteClientDto
 {
     public int Id { get; set; }
 
@@ -14,4 +14,4 @@ public sealed record DeleteClientDto
     {
         Id = id;
     }
-}
+}*/

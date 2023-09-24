@@ -2,6 +2,6 @@
 
 public sealed record CreateAccountRequest
 {
-    public int ClientId { get; set; }
-    public decimal Balance { get; set; }
+    public int ClientId { get; init; }
+    public decimal Balance { get; init; }
 }

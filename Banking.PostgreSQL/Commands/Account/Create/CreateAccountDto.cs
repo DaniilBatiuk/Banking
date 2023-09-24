@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Account.Create;
 
-public sealed record CreateAccountDto
+/*public sealed record CreateAccountDto
 {
     public int ClientId { get; set; }
     public decimal Balance { get; set; }
@@ -16,4 +16,4 @@ public sealed record CreateAccountDto
         ClientId = clientId;
         Balance = balance;
     }
-}
+}*/

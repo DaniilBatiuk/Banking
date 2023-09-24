@@ -2,5 +2,5 @@
 
 public sealed record DeleteClientRequest
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 }

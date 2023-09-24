@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Client.Delete;
 
-public sealed class DeleteClientCommand : IDeleteClientCommand
+/*public sealed class DeleteClientCommand : IDeleteClientCommand
 {
     private readonly BankingDbContext _context;
 
@@ -29,4 +29,4 @@ public sealed class DeleteClientCommand : IDeleteClientCommand
         }
     }
 
-}
+}*/
