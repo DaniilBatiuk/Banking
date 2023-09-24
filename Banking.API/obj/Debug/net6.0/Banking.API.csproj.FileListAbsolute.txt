@@ -54,3 +54,7 @@ D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\refint\Banking.API.dll
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.pdb
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.genruntimeconfig.cache
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\ref\Banking.API.dll
+D:\Patterns\Banking.API\Banking.API\bin\Debug\net6.0\FluentValidation.dll
+D:\Patterns\Banking.API\Banking.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+D:\Patterns\Banking.API\Banking.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\Patterns\Banking.API\Banking.API\bin\Debug\net6.0\BCrypt.Net-Next.dll

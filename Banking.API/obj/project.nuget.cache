@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ZchAcRdslkGQJ/fpC5kNSbMefTXxoHJ1MxjqDvH77x8d4xZPod7BMz9DIOY7VTYZq17RGVp5DHrNq1EOfaU4hw==",
+  "dgSpecHash": "i48mcRIRMJLQe+7e2r7QutcXhmsWhfBY3MtWJ9ZmuLCBFO1IsvVZ2+ShAmpdSnZNeYWLfm1kpIrtsW7y0UBijA==",
   "success": true,
   "projectFilePath": "D:\\Patterns\\Banking.API\\Banking.API\\Banking.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Gigabyte\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Gigabyte\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
+    "C:\\Users\\Gigabyte\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\Gigabyte\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\Gigabyte\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Gigabyte\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",
     "C:\\Users\\Gigabyte\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",

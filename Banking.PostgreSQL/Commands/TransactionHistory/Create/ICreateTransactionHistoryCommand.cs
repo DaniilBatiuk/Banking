@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking.PostgreSQL.Commands.TransactionHistory;
+namespace Banking.PostgreSQL.Commands.TransactionHistory.Create;
 
-public interface ICreateTransactionHistoryCommand : INoResponseAsyncCommand<CreateTransactionHistoryDto>
+/*public interface ICreateTransactionHistoryCommand : INoResponseAsyncCommand<CreateTransactionHistoryDto>
 {
 
-}
+}*/

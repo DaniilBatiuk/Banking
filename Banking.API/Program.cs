@@ -1,20 +1,24 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Banking.PostgreSQL.Extensions;
+using Banking.PostgreSQL.Extensions.CQRS;
+using Banking.API.RestModels.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder
     .Services
-    .AddBankingData("Host=localhost;Port=5432;Database=banking;Username=postgres;Password=PASSWORD;")
+    .AddBankingData("Host=localhost;Port=5432;Database=banking;Username=postgres;Password=0975695007Dan;")
+    .AddValidators()
     .AddClientCommands()
     .AddAccountCommands()
     .AddTransactionCommands()
-    .AddTransactionHistoryCommands();
+    .AddTransactionHistoryCommands()
+    .AddSQRS();
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {

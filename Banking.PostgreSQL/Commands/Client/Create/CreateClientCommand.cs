@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Client.Create;
 
-public sealed class CreateClientCommand : ICreateClientCommand
+/*public sealed class CreateClientCommand : ICreateClientCommand
 {
     private readonly BankingDbContext _context;
 
@@ -31,4 +31,4 @@ public sealed class CreateClientCommand : ICreateClientCommand
         await _context.SaveChangesAsync();
     }
 
-}
+}*/

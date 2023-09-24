@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Account.Create;
 
-public sealed class CreateAccountCommand : ICreateAccountCommand
+/*public sealed class CreateAccountCommand : ICreateAccountCommand
 {
     private readonly BankingDbContext _context;
 
@@ -30,4 +30,4 @@ public sealed class CreateAccountCommand : ICreateAccountCommand
         await _context.SaveChangesAsync();
     }
 
-}
+}*/

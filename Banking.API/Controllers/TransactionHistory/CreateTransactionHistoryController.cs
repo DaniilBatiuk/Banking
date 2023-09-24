@@ -1,8 +1,6 @@
 ﻿using Banking.API.RestModels.Transaction;
 using Banking.API.RestModels.TransactionHistory;
-using Banking.PostgreSQL.Commands.Transaction.Create;
-using Banking.PostgreSQL.Commands.TransactionHistory;
-using Microsoft.AspNetCore.Http;
+using Banking.PostgreSQL.CQRS.TransactionHistory.Create;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Banking.API.Controllers.TransactionHistory;
@@ -12,25 +10,35 @@ namespace Banking.API.Controllers.TransactionHistory;
 [ApiExplorerSettings(GroupName = "transactionHistorys")]
 public sealed class CreateTransactionHistoryController : ControllerBase
 {
-    private readonly ICreateTransactionHistoryCommand _createTransactionHistory;
+    private readonly ICreateTransactionHistoryCommandHandler _createTransactionHistoryCommandHandler;
+    private readonly ILogger<CreateTransactionHistoryController> _logger;
 
-    public CreateTransactionHistoryController(ICreateTransactionHistoryCommand createTransactionHistory)
+    public CreateTransactionHistoryController(
+        ICreateTransactionHistoryCommandHandler createTransactionHistoryCommandHandler, ILogger<CreateTransactionHistoryController> logger)
     {
-        _createTransactionHistory = createTransactionHistory;
+        _createTransactionHistoryCommandHandler = createTransactionHistoryCommandHandler;
+        _logger = logger;
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateTransactionHistoryRequest request)
+    public async Task<ActionResult<CreateTransactionResponse>> Create([FromBody] CreateTransactionHistoryRequest request)
     {
 
-        CreateTransactionHistoryDto dto = new CreateTransactionHistoryDto(
+        try
+        {
+            CreateTransactionHistoryCommand createTransactionHistoryCommand = new CreateTransactionHistoryCommand(
             request.TransactionId,
-            request.OperationDetails
-        );
+            request.OperationDetails);
 
+            await _createTransactionHistoryCommandHandler.Handle(createTransactionHistoryCommand);
 
-        await _createTransactionHistory.Execute(dto);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error occured during the user creation process");
 
-        return Ok();
+            return Problem("Something went wrong");
+        }
     }
 }

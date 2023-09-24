@@ -1,8 +1,6 @@
-﻿using Banking.API.RestModels.Client;
-using Banking.API.RestModels.Transaction;
-using Banking.PostgreSQL.Commands.Client.Create;
-using Banking.PostgreSQL.Commands.Transaction.Create;
-using Microsoft.AspNetCore.Http;
+﻿using Banking.API.RestModels.Transaction;
+using Banking.PostgreSQL.CQRS.Account.Create;
+using Banking.PostgreSQL.CQRS.Transaction.Create;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Banking.API.Controllers.Transaction;
@@ -12,26 +10,36 @@ namespace Banking.API.Controllers.Transaction;
 [ApiExplorerSettings(GroupName = "transactions")]
 public sealed class CreateTransactionController : ControllerBase
 {
-    private readonly ICreateTransactionCommand _createTransaction;
+    private readonly ICreateTransactionCommandHandler _createTransactionCommandHandler;
+    private readonly ILogger<CreateTransactionController> _logger;
 
-    public CreateTransactionController(ICreateTransactionCommand createTransaction)
+    public CreateTransactionController(
+        ICreateTransactionCommandHandler createTransactionCommandHandler, ILogger<CreateTransactionController> logger)
     {
-        _createTransaction = createTransaction;
+        _createTransactionCommandHandler = createTransactionCommandHandler;
+        _logger = logger;
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateTransactionRequest request)
+    public async Task<ActionResult<CreateTransactionResponse>> Create([FromBody] CreateTransactionRequest request)
     {
 
-        CreateTransactionDto dto = new CreateTransactionDto(
-            request.AccountId,
+        try
+        {
+            CreateTransactionCommand createTransactionCommand = new CreateTransactionCommand(
+               request.AccountId,
             request.TransactionType,
-            request.Amount
-        );
+            request.Amount);
 
+            await _createTransactionCommandHandler.Handle(createTransactionCommand);
 
-        await _createTransaction.Execute(dto);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error occured during the user creation process");
 
-        return Ok();
+            return Problem("Something went wrong");
+        }
     }
 }

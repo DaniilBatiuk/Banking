@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Transaction.Create;
 
-public interface ICreateTransactionCommand : INoResponseAsyncCommand<CreateTransactionDto>
+/*public interface ICreateTransactionCommand : INoResponseAsyncCommand<CreateTransactionDto>
 {
 
-}
+}*/

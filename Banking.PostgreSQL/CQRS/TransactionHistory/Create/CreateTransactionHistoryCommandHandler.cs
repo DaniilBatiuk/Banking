@@ -1,4 +1,4 @@
-﻿using Banking.PostgreSQL.Commands.Transaction.Create;
+﻿using Banking.PostgreSQL.CQRS.Client.Commands.Create;
 using Banking.PostgreSQL.Data.Entities;
 using Banking.PostgreSQL.Data;
 using System;
@@ -7,23 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking.PostgreSQL.Commands.TransactionHistory;
+namespace Banking.PostgreSQL.CQRS.TransactionHistory.Create;
 
-public sealed class CreateTransactionHistoryCommand : ICreateTransactionHistoryCommand
+
+public sealed class CreateTransactionHistoryCommandHandler : ICreateTransactionHistoryCommandHandler
 {
     private readonly BankingDbContext _context;
 
-    public CreateTransactionHistoryCommand(BankingDbContext context)
+    public CreateTransactionHistoryCommandHandler(BankingDbContext context)
     {
         _context = context;
     }
 
-    public async Task Execute(CreateTransactionHistoryDto data)
+    public async Task Handle(CreateTransactionHistoryCommand command)
     {
+
         TransactionHistoryEntity entity = new TransactionHistoryEntity
         {
-            OperationDetails = data.OperationDetails,
-            TransactionId = data.TransactionId,
+            OperationDetails = command.OperationDetails,
+            TransactionId = command.TransactionId,
             TimeCompletion = DateTime.UtcNow,
         };
 
@@ -31,3 +33,5 @@ public sealed class CreateTransactionHistoryCommand : ICreateTransactionHistoryC
         await _context.SaveChangesAsync();
     }
 }
+
+

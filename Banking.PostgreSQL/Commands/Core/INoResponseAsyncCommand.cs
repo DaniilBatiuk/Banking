@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Core;
 
-public interface INoResponseAsyncCommand<in TData>
+/*public interface INoResponseAsyncCommand<in TData>
 {
     Task Execute(TData data);
-}
+}*/

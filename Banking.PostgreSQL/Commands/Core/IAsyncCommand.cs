@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Core;
-public interface IAsyncCommand
+/*public interface IAsyncCommand
 {
     Task Execute();
 }
@@ -18,5 +18,5 @@ public interface IAsyncCommand<TResult>
 public interface IAsyncCommand<in TData, TResult>
 {
     Task<TResult> Execute(TData data);
-}
+}*/
 

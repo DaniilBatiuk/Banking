@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.Commands.Transaction.Create;
 
-public sealed class CreateTransactionCommand : ICreateTransactionCommand
+/*public sealed class CreateTransactionCommand : ICreateTransactionCommand
 {
     private readonly BankingDbContext _context;
 
@@ -31,5 +31,5 @@ public sealed class CreateTransactionCommand : ICreateTransactionCommand
         _context.Transaction.Add(entity);
         await _context.SaveChangesAsync();
     }
-}
+}*/
 
