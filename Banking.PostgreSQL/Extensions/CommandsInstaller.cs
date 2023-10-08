@@ -9,6 +9,7 @@ using Banking.PostgreSQL.CQRS.Client.Commands.Delete;
 using Banking.PostgreSQL.CQRS.Client.Queries.FindClient;
 using Banking.PostgreSQL.CQRS.Transaction.Create;
 using Banking.PostgreSQL.CQRS.TransactionHistory.Create;
+using Banking.PostgreSQL.FactoryMethod;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
