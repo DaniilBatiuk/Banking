@@ -1,6 +1,8 @@
 ﻿using Banking.API.RestModels.Client;
+using Banking.PostgreSQL.Builder;
 using Banking.PostgreSQL.CQRS.Client.Commands.Create;
 using Banking.PostgreSQL.CQRS.Client.Queries.FindClient;
+using Banking.PostgreSQL.Data.Entities;
 using Banking.PostgreSQL.Dtos.Client;
 using FluentValidation;
 using FluentValidation.Results;
@@ -17,7 +19,7 @@ public sealed class CreateClientController : ControllerBase
     private readonly ICreateClientCommandHandler _createClientCommandHandler;
     private readonly IFindClientQueryHandler _findClientQueryHandler;
     private readonly ILogger<CreateClientController> _logger;
-
+    private ClientBuilder builder;
     public CreateClientController(
         ICreateClientCommandHandler createClientCommandHandler, IValidator<CreateClientRequest> validator, ILogger<CreateClientController> logger, IFindClientQueryHandler findClientQueryHandler)
     {
@@ -41,13 +43,25 @@ public sealed class CreateClientController : ControllerBase
 
         try
         {
-            CreateClientCommand createClientCommand = new CreateClientCommand(
-                request.FirstName,
+
+            if (request.FirstName == "string" && request.LastName == "string")
+            {
+                 builder = new SecretClientBuilder();
+            }
+            else
+            {
+                 builder = new OrdinaryClientBuilder();
+            }
+
+            ClientDirector director = new ClientDirector(builder);
+            director.Construct(request.FirstName,
                 request.LastName,
                 request.Email,
                 passwordHash);
 
-            await _createClientCommandHandler.Handle(createClientCommand);
+            CreateClientCommand clientRequest = builder.GetResult();
+
+            await _createClientCommandHandler.Handle(clientRequest);
 
             ClientDto? client = await _findClientQueryHandler.Handle(new FindClientQuery(request.Email));
 

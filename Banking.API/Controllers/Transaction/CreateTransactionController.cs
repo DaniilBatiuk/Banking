@@ -1,10 +1,12 @@
 ﻿using Banking.API.RestModels.Transaction;
+using Banking.PostgreSQL.ChainOfResponsibility;
 using Banking.PostgreSQL.CQRS.Account.Create;
 using Banking.PostgreSQL.CQRS.Transaction.Create;
 using Banking.PostgreSQL.Data.Entities;
 using Banking.PostgreSQL.FactoryMethod;
 using Banking.PostgreSQL.TemplateMethod;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Banking.API.Controllers.Transaction;
 
@@ -16,7 +18,9 @@ public sealed class CreateTransactionController : ControllerBase
     private readonly ICreateTransactionCommandHandler _createTransactionCommandHandler;
     private readonly ILogger<CreateTransactionController> _logger;
     private TransactionFactory _transactionFactory;
-    TransactionProcessor processor;
+    private TransactionProcessor processor;
+    private Approver Daniil, Anna, Oleg;
+
     public CreateTransactionController(
         ICreateTransactionCommandHandler createTransactionCommandHandler, ILogger<CreateTransactionController> logger)
     {
@@ -34,6 +38,16 @@ public sealed class CreateTransactionController : ControllerBase
                request.AccountId,
             request.TransactionType,
             request.Amount);
+
+            Daniil = new Operator();
+            Anna = new Manager();
+            Oleg = new HighLevelSpecialist();
+
+            Daniil.SetSuccessor(Anna);
+            Anna.SetSuccessor(Oleg);
+
+            string result = Daniil.ProcessTransaction(createTransactionCommand);
+            _logger.LogDebug(result);
 
             await _createTransactionCommandHandler.Handle(createTransactionCommand);
 
