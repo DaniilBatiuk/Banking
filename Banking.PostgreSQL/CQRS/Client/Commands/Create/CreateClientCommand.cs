@@ -14,6 +14,13 @@ public sealed record CreateClientCommand : ICommand
     public string Email { get; set; }
     public string PasswordHash { get; set; }
 
+    public CreateClientCommand()
+    {
+        FirstName = "FirstName";
+        LastName = "LastName";
+        Email = "Email";
+        PasswordHash = "PasswordHash";
+    }
     public CreateClientCommand(string firstName, string lastName, string email, string passwordHash)
     {
         FirstName = firstName;
@@ -21,4 +28,5 @@ public sealed record CreateClientCommand : ICommand
         Email = email;
         PasswordHash = passwordHash;
     }
+
 }

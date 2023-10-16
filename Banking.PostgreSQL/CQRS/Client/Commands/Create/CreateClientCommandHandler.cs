@@ -14,7 +14,6 @@ public sealed class CreateClientCommandHandler : ICreateClientCommandHandler
 
     public async Task Handle(CreateClientCommand command)
     {
-
         ClientEntity entity = new ClientEntity
         {
             FirstName = command.FirstName,
@@ -24,7 +23,6 @@ public sealed class CreateClientCommandHandler : ICreateClientCommandHandler
         };
 
         _context.Clients.Add(entity);
-
         await _context.SaveChangesAsync();
     }
 }
