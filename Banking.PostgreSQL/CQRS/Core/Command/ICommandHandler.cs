@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.PostgreSQL.CQRS.Core.Command;
 
-public interface ICommandHandler<in TCommand> where TCommand : ICommand
+public interface ICommandHandler<TCommand>
 {
     Task Handle(TCommand command);
 }
