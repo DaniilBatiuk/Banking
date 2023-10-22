@@ -38,7 +38,6 @@ D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.GeneratedMSBuil
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.AssemblyInfoInputs.cache
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.AssemblyInfo.cs
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.csproj.CoreCompileInputs.cache
-D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.MvcApplicationPartsAssemblyInfo.cs
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\Banking.API.MvcApplicationPartsAssemblyInfo.cache
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\staticwebassets\msbuild.Banking.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\Patterns\Banking.API\Banking.API\obj\Debug\net6.0\staticwebassets\msbuild.build.Banking.API.props

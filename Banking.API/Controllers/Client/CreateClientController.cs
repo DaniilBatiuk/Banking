@@ -4,6 +4,7 @@ using Banking.PostgreSQL.CQRS.Client.Commands.Create;
 using Banking.PostgreSQL.CQRS.Client.Queries.FindClient;
 using Banking.PostgreSQL.Data.Entities;
 using Banking.PostgreSQL.Dtos.Client;
+using Banking.PostgreSQL.Mediator;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,17 @@ namespace Banking.API.Controllers.Client;
 public sealed class CreateClientController : ControllerBase
 {
     private readonly IValidator<CreateClientRequest> _validator;
-    private readonly ICreateClientCommandHandler _createClientCommandHandler;
+    private readonly IMediator _mediator;
     private readonly IFindClientQueryHandler _findClientQueryHandler;
     private readonly ILogger<CreateClientController> _logger;
-    private ClientBuilder builder;
+
     public CreateClientController(
-        ICreateClientCommandHandler createClientCommandHandler, IValidator<CreateClientRequest> validator, ILogger<CreateClientController> logger, IFindClientQueryHandler findClientQueryHandler)
+        IMediator mediator,
+        IValidator<CreateClientRequest> validator,
+        ILogger<CreateClientController> logger,
+        IFindClientQueryHandler findClientQueryHandler)
     {
-        _createClientCommandHandler = createClientCommandHandler;
+        _mediator = mediator;
         _validator = validator;
         _logger = logger;
         _findClientQueryHandler = findClientQueryHandler;
@@ -43,27 +47,17 @@ public sealed class CreateClientController : ControllerBase
 
         try
         {
-
-            if (request.FirstName == "string" && request.LastName == "string")
-            {
-                 builder = new SecretClientBuilder();
-            }
-            else
-            {
-                 builder = new OrdinaryClientBuilder();
-            }
-
-            ClientDirector director = new ClientDirector(builder);
-            director.Construct(request.FirstName,
+            var createClientCommand = new CreateClientCommand(
+                request.FirstName,
                 request.LastName,
                 request.Email,
-                passwordHash);
+                passwordHash
+            );
 
-            CreateClientCommand clientRequest = builder.GetResult();
+            await _mediator.Send(createClientCommand);
 
-            await _createClientCommandHandler.Handle(clientRequest);
-
-            ClientDto? client = await _findClientQueryHandler.Handle(new FindClientQuery(request.Email));
+            var findClientQuery = new FindClientQuery(request.Email);
+            ClientDto? client = await _mediator.Send<FindClientQuery, ClientDto?>(findClientQuery);
 
             if (client != null)
             {
@@ -72,21 +66,19 @@ public sealed class CreateClientController : ControllerBase
                     client.LastName,
                     client.Email,
                     client.PasswordHash
-                    );
+                );
 
                 return Ok(response);
             }
             else
             {
-                _logger.LogError($"Could not find user after creations");
-
+                _logger.LogError("Could not find user after creation");
                 return BadRequest();
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error occured during the user creation process");
-
+            _logger.LogError(ex, "Error occurred during the user creation process");
             return Problem("Something went wrong");
         }
     }

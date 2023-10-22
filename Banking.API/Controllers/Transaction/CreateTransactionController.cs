@@ -1,9 +1,11 @@
 ﻿using Banking.API.RestModels.Transaction;
 using Banking.PostgreSQL.ChainOfResponsibility;
 using Banking.PostgreSQL.CQRS.Account.Create;
+using Banking.PostgreSQL.CQRS.Client.Commands.Create;
 using Banking.PostgreSQL.CQRS.Transaction.Create;
 using Banking.PostgreSQL.Data.Entities;
 using Banking.PostgreSQL.FactoryMethod;
+using Banking.PostgreSQL.Mediator;
 using Banking.PostgreSQL.TemplateMethod;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,16 +17,15 @@ namespace Banking.API.Controllers.Transaction;
 [ApiExplorerSettings(GroupName = "transactions")]
 public sealed class CreateTransactionController : ControllerBase
 {
-    private readonly ICreateTransactionCommandHandler _createTransactionCommandHandler;
     private readonly ILogger<CreateTransactionController> _logger;
+    private readonly IMediator _mediator;
     private TransactionFactory _transactionFactory;
     private TransactionProcessor processor;
     private Approver Daniil, Anna, Oleg;
 
-    public CreateTransactionController(
-        ICreateTransactionCommandHandler createTransactionCommandHandler, ILogger<CreateTransactionController> logger)
+    public CreateTransactionController(ILogger<CreateTransactionController> logger, IMediator mediator)
     {
-        _createTransactionCommandHandler = createTransactionCommandHandler;
+        _mediator = mediator;
         _logger = logger;
     }
 
@@ -49,7 +50,7 @@ public sealed class CreateTransactionController : ControllerBase
             string result = Daniil.ProcessTransaction(createTransactionCommand);
             _logger.LogDebug(result);
 
-            await _createTransactionCommandHandler.Handle(createTransactionCommand);
+            await _mediator.Send(createTransactionCommand);
 
             return Ok();
         }
@@ -74,7 +75,7 @@ public sealed class CreateTransactionController : ControllerBase
             processor = new DepositTransactionProcessor();
             processor.ProcessTransaction(transaction);
 
-            await _createTransactionCommandHandler.Handle(transaction);
+            await _mediator.Send(transaction);
             return Ok(transaction);
         }
         catch (Exception ex)
@@ -95,7 +96,7 @@ public sealed class CreateTransactionController : ControllerBase
             processor = new WithdrawTransactionProcessor();
             processor.ProcessTransaction(transaction);
 
-            await _createTransactionCommandHandler.Handle(transaction);
+            await _mediator.Send(transaction);
             return Ok(transaction);
         }
         catch (Exception ex)
